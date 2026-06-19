@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Services - {{ company_name }}{% endblock %}
+
+{% block content %}
+<section class="page-title-bar">
+    <h2>ஆன்லைன் சேவைகள் / Online Services</h2>
+    <p>Select a service to view required documents, sample certificate, and submit customer details.</p>
+</section>
+
+{% if services %}
+<section class="service-grid">
+    {% for service in services %}
+    <a href="{{ url_for('service_detail', service_id=service.id) }}" class="service-card">
+        <div class="service-card-icon">📄</div>
+        <div class="service-card-body">
+            <h3>{{ service.name }}</h3>
+            <p class="service-amount">₹ {{ "%.0f"|format(service.amount) if service.amount == service.amount|int else service.amount }}</p>
+            <span class="service-link">Apply Now →</span>
+        </div>
+    </a>
+    {% endfor %}
+</section>
+{% else %}
+<div class="empty-state">
+    <p>No services available yet. Admin can add services from the Manage menu.</p>
+</div>
+{% endif %}
+{% endblock %}
